@@ -1,0 +1,21 @@
+{% extends 'dashboard/main.html' %}
+{% block content %}
+
+<hr>
+<div class="container">
+    <div class="row">
+
+        {% include 'dashboard/sidebar.html' %}
+
+        <div class="col">
+            <h1>Dashboard Manager</h1>
+            {% for message in messages %}
+                {{message}}
+                <br>
+            {% endfor %}
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium quisquam necessitatibus sunt nostrum obcaecati quae beatae impedit, dolore eum dicta fugiat porro voluptatem! Veritatis fugiat doloremque accusantium reprehenderit, est suscipit.</p>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

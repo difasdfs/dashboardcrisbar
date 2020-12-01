@@ -1,0 +1,43 @@
+{% extends 'dashboard/main.html' %}
+{% block content %}
+
+
+<hr>
+<div class="container">
+    <div class="row">
+        {% include 'dashboard/sidebarstaff.html' %}
+        <div class="col">
+            <h2>Tugas Rutin</h2>
+            {% for tugasr in tugas_rutin %}
+            <br>
+            <div class="card">
+                <div class="card-header">
+                    <strong>{{tugasr.judul}}</strong>
+                </div>
+                <div class="card-body">
+                    <blockquote class="blockquote mb-0">
+                    <p>{{tugasr.isi}}</p>
+                    </blockquote>
+                </div>
+            </div>
+            {% endfor %}
+                    
+            <br><br>
+            <h2>Tugas Proyek</h2>
+            {% for tugasp in tugas_proyek %}
+            <br>
+            <div class="card">
+                <div class="card-header">
+                    <strong>{{tugasp.judul}}</strong>
+                </div>
+                <div class="card-body">
+                    <blockquote class="blockquote mb-0">
+                    <p>{{tugasp.isi}}</p>
+                    </blockquote>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

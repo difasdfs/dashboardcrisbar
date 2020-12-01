@@ -1,0 +1,27 @@
+1 app (dashboard)
+
+model :
+- tugas
+  - nama staff (char)
+  - judul tugas (char)
+  - isi tugas (char)
+  - status (pilihan)
+
+views :
+- login
+
+- staff
+  - liat tugas
+
+- manager
+  - register
+  - ngasih tugas
+
+USER
+- First name = nama lengkap
+- Last name = bagian
+- Username
+- Passoword
+
+Yang belum :
+gimana caranya supaya tugas tersimpan dalam database ?
