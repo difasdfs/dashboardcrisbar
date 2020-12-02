@@ -40,6 +40,19 @@ def loginpage(request):
     return render(request, 'dashboard/login.html', context)
 
 
+"""HALAMAN PROFILE"""
+
+
+@login_required(login_url='login')
+def profile(request):
+    nama = request.user.first_name
+    context = {'nama': nama}
+    if apamanager(request.user):
+        return render(request, 'dashboard/profile.html', context)
+    else:
+        return render(request, 'dashboard/profile_staff.html', context)
+
+
 """ LOGOUT """
 
 

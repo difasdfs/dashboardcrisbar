@@ -1,0 +1,41 @@
+{% extends 'dashboard/main.html' %}
+{% block content %}
+
+<hr>
+<div class="container">
+    <div class="row">
+        {% include 'dashboard/sidebar.html' %}
+        <div class="col">
+            <h1>Halaman Ubah Profile</h1>
+            <br>
+            <form action="" method="POST">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="nama_lengkap">Nama Lengkap : </label>
+                    <br>
+                    <input type="text" class="form-control" id="nama_lengkap" aria-describedby="emailHelp"
+                        name="nama_lengkap" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="username">Username : </label>
+                    <br>
+                    <input type="text" class="form-control" id="username" aria-describedby="emailHelp" name="username"
+                        required>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password : </label>
+                    <br>
+                    <input type="password" class="form-control" id="password" aria-describedby="emailHelp"
+                        name="password" required>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

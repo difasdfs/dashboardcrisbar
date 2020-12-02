@@ -11,5 +11,6 @@ urlpatterns = [
     path('daftarstaff/', views.daftarstaff, name='daftarstaff'),
     path('delete/<int:user_id>/', views.deleteuser, name='deleteuser'),
     path('masuktugas/<int:user_id>/', views.masukkantugas, name='masukkantugas'),
-    path('lihat_tugas/', views.lihat_tugas, name='lihattugas')
+    path('lihat_tugas/', views.lihat_tugas, name='lihattugas'),
+    path('profile/', views.profile, name='profile')
 ]
