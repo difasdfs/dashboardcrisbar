@@ -1,0 +1,56 @@
+{% extends 'dashboard/main.html' %}
+{% block content %}
+
+<hr>
+<div class="container">
+
+
+    <div class="row">
+        {% include 'dashboard/sidebarstaff.html' %}
+        <div class="col">
+            <h1>Detail</h1>
+            <br>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th scope="col">Katerangan</th>
+                        <th scope="col">Isi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">judul</th>
+                        <td>{{judul}}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Isi</th>
+                        <td>{{isi}}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Dibuat pada</th>
+                        <td>{{dibuat_pada}}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Status</th>
+                        <td>{{status}}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Deadline</th>
+                        <td>{{deadline}}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Selesai</th>
+                        <td>{{selesai}}</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <form action="" method="POST">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-primary">Selesai</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

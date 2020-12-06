@@ -5,10 +5,12 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import Group
 from django.contrib import messages
+from django.utils import timezone
 
 from .decorators import unauthenticated_user
 from .logic import *
 from .forms import CreateUserForm
+from .models import *
 # Create your views here.
 
 """ HALAMAN LOGIN """
@@ -47,7 +49,9 @@ def loginpage(request):
 def profile(request):
     nama = request.user.first_name
     context = {'nama': nama}
-    if apamanager(request.user):
+    manager = apamanager(request.user)
+
+    if manager:
         return render(request, 'dashboard/profile.html', context)
     else:
         return render(request, 'dashboard/profile_staff.html', context)
@@ -137,13 +141,20 @@ def masukkantugas(request, user_id):
         juduls = request.POST.get('judul')
         isis = request.POST.get('isi')
         jeniss = request.POST.get('jenis')
+        deadlinetugas = request.POST.get('deadline')
+        kuantitasnya = request.POST.get('kuantitas')
 
         # tulis data ke dalam database
         staff.tugas_set.create(
             judul=juduls,
             isi=isis,
             status="On Progress",
-            jenis=jeniss
+            jenis=jeniss,
+            dibuat_pada=timezone.now(),
+            deadline=deadlinetugas,
+            kuantitas=kuantitasnya,
+            selesai=0,
+            acc=0
         )
         return redirect('manager')
 
@@ -180,3 +191,33 @@ def lihat_tugas(request):
     context = {'nama': nama, 'tugas_rutin': tugas_rutin,
                'tugas_proyek': tugas_proyek}
     return render(request, 'dashboard/lihat_tugas.html', context)
+
+
+@login_required(login_url='login')
+def detail_tugas(request, tugas_id):
+
+    if apamanager(request.user):
+        return redirect('manager')
+
+    if request.method == 'POST':
+        a = Tugas.objects.get(pk=tugas_id)
+        a.selesai += 1
+        a.save()
+
+    nama = request.user.first_name
+    context = detailtugas(tugas_id)
+    context['nama'] = nama
+
+    return render(request, 'dashboard/detail_tugas.html', context)
+
+
+@login_required(login_url='login')
+def tugas_staff(request):
+
+    if not apamanager(request.user):
+        return redirect('staff')
+
+    nama = request.user.first_name
+    context = {}
+    context['nama'] = nama
+    return render(request, 'dashboard/tugas_staff.html', context)

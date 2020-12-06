@@ -1,6 +1,7 @@
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import User
 from .models import *
+from django.utils import timezone
 
 
 def apamanager(user):
@@ -25,12 +26,14 @@ def delete_user(user_id):
 
 
 def inputtugasstaff(nama_staff, judul, isi, status, jenis):
+    sekarang = timezone.now()
     t = Tugas(
         nama_staff,
         judul,
         isi,
         status,
-        jenis
+        jenis,
+        dibuat_pada=sekarang
     )
     t.save()
 
@@ -44,8 +47,29 @@ def dapatkantugas(user_id):
 
     for tugas in tugasnya:
         if tugas.jenis == "Rutin":
-            tugas_rutin.append(tugas)
+            tugas_rutin.append(
+                [tugas, tugas.deadline_tugas(), tugas.progressnya()])
         elif tugas.jenis == "Proyek":
-            tugas_proyek.append(tugas)
+            tugas_proyek.append(
+                [tugas, tugas.deadline_tugas(), tugas.progressnya()])
 
     return (tugas_rutin, tugas_proyek)
+
+
+def detailtugas(tugas_id):
+    tugasnya = Tugas.objects.get(pk=tugas_id)
+    judulnya = tugasnya.judul
+    isinya = tugasnya.isi
+    dibuat_pada = tugasnya.formatwaktu(tugasnya.dibuat_pada)
+    statusnya = tugasnya.status
+    deadlinenya = tugasnya.formatwaktu(tugasnya.deadline)
+    selesainya = tugasnya.progressnya()
+
+    return {
+        "judul": judulnya,
+        "isi": isinya,
+        "dibuat_pada": dibuat_pada,
+        "status": statusnya,
+        "deadline": deadlinenya,
+        "selesai": selesainya
+    }

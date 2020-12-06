@@ -7,36 +7,54 @@
     <div class="row">
         {% include 'dashboard/sidebarstaff.html' %}
         <div class="col">
+
             <h2>Tugas Rutin</h2>
-            {% for tugasr in tugas_rutin %}
             <br>
-            <div class="card">
-                <div class="card-header">
-                    <strong>{{tugasr.judul}}</strong>
-                </div>
-                <div class="card-body">
-                    <blockquote class="blockquote mb-0">
-                    <p>{{tugasr.isi}}</p>
-                    </blockquote>
-                </div>
-            </div>
-            {% endfor %}
-                    
-            <br><br>
-            <h2>Tugas Proyek</h2>
-            {% for tugasp in tugas_proyek %}
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">No</th>
+                        <th scope="col">Judul</th>
+                        <th scope="col">Deadline</th>
+                        <th scope="col">Progress</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for tugasr in tugas_rutin %}
+                    <tr>
+                        <th scope="row">{{forloop.counter}}</th>
+                        <td><a href="{% url 'detail_tugas' tugasr.0.id %}">{{tugasr.0.judul}}</a></td>
+                        <td>{{tugasr.1}}</td>
+                        <td>{{tugasr.2}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
             <br>
-            <div class="card">
-                <div class="card-header">
-                    <strong>{{tugasp.judul}}</strong>
-                </div>
-                <div class="card-body">
-                    <blockquote class="blockquote mb-0">
-                    <p>{{tugasp.isi}}</p>
-                    </blockquote>
-                </div>
-            </div>
-            {% endfor %}
+            <h2>Proyek</h2>
+            <br>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">No</th>
+                        <th scope="col">Judul</th>
+                        <th scope="col">Deadline</th>
+                        <th scope="col">Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for tugasp in tugas_proyek %}
+                    <tr>
+                        <th scope="row">{{forloop.counter}}</th>
+                        <td><a href="{% url 'detail_tugas' tugasp.0.id %}">{{tugasp.0.judul}}</a></td>
+                        <td>{{tugasp.1}}</td>
+                        <td>{{tugasp.0.status}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
         </div>
     </div>
 </div>
