@@ -7,6 +7,30 @@
         {% include 'dashboard/sidebar.html' %}
         <div class="col">
             <h1>Halaman tugas staff</h1>
+
+            <br>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">No</th>
+                        <th scope="col">Nama</th>
+                        <th scope="col">Judul</th>
+                        <th scope="col">Progress</th>
+                        <th scope="col">Deadline</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for isi in tugas_pengguna %}
+                    <tr>
+                        <th scope="row">{{forloop.counter}}</th>
+                        <td>{{isi.0}}</td>
+                        <td><a href="{{isi.4}}">{{isi.1}}</a></td>
+                        <td>{{isi.2}}</td>
+                        <td>{{isi.3}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
         </div>
     </div>
 

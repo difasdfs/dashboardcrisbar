@@ -17,6 +17,7 @@
                         <th scope="col">Judul</th>
                         <th scope="col">Deadline</th>
                         <th scope="col">Progress</th>
+                        <th scope="col">Status</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -26,6 +27,7 @@
                         <td><a href="{% url 'detail_tugas' tugasr.0.id %}">{{tugasr.0.judul}}</a></td>
                         <td>{{tugasr.1}}</td>
                         <td>{{tugasr.2}}</td>
+                        <td>{{tugasr.4}}</td>
                     </tr>
                     {% endfor %}
                 </tbody>
@@ -40,7 +42,7 @@
                         <th scope="col">No</th>
                         <th scope="col">Judul</th>
                         <th scope="col">Deadline</th>
-                        <th scope="col">Status</th>
+                        <th scope="col">Dibuat pada</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -49,12 +51,57 @@
                         <th scope="row">{{forloop.counter}}</th>
                         <td><a href="{% url 'detail_tugas' tugasp.0.id %}">{{tugasp.0.judul}}</a></td>
                         <td>{{tugasp.1}}</td>
-                        <td>{{tugasp.0.status}}</td>
+                        <td>{{tugasp.3}}</td>
                     </tr>
                     {% endfor %}
                 </tbody>
             </table>
 
+            <hr><br>
+            <h2>Selesai</h2>
+            <br>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">No</th>
+                        <th scope="col">Judul</th>
+                        <th scope="col">Selesai pada</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for tugasselesai in tugas_selesai %}
+                    <tr>
+                        <th scope="row">{{forloop.counter}}</th>
+                        <td><a href="{% url 'detail_tugas' tugasselesai.0.id %}">{{tugasselesai.0.judul}}</a></td>
+                        <td>{{tugasselesai.1}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <hr><br>
+            <h2>Tidak Tuntas</h2>
+            <br>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">No</th>
+                        <th scope="col">Judul</th>
+                        <th scope="col">Deadline</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for tugasdeadline in tugas_deadline %}
+                    <tr>
+                        <th scope="row">{{forloop.counter}}</th>
+                        <td><a href="{% url 'detail_tugas' tugasdeadline.2 %}">{{tugasdeadline.0}}</a></td>
+                        <td>{{tugasdeadline.1}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <h2>Tuntas</h2>
         </div>
     </div>
 </div>

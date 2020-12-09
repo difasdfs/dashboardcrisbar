@@ -1,9 +1,9 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login, logout, get_user_model
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import Group
+from django.contrib.auth import authenticate, login, logout, get_user_model
 from django.contrib import messages
 from django.utils import timezone
 
@@ -18,6 +18,7 @@ from .models import *
 
 @unauthenticated_user
 def loginpage(request):
+    ngecekdeadline()
     context = {}
     # jika metode request adalah post
     if request.method == 'POST':
@@ -156,7 +157,7 @@ def masukkantugas(request, user_id):
             selesai=0,
             acc=0
         )
-        return redirect('manager')
+        return redirect('tugas_staff')
 
     KelasStaff = get_user_model()
     objek_staff = KelasStaff.objects.get(pk=user_id)
@@ -167,10 +168,41 @@ def masukkantugas(request, user_id):
     return render(request, 'dashboard/inputtugas.html', context)
 
 
+@ login_required(login_url='login')
+def tugas_staff(request):
+
+    context = {}
+    if not apamanager(request.user):
+        return redirect('staff')
+
+    nama = request.user.first_name
+    bagian = bagianapa(request.user)
+    anggota = anggotabagian(nama, bagian)
+    context['nama'] = nama
+
+    tugas_pengguna = []
+
+    for user in anggota:
+        nama_user = user.first_name
+        nama_tugas = user.tugas_set.all()
+
+        for tugasnya in nama_tugas:
+            judul = tugasnya.judul
+            progress = tugasnya.progressnya()
+            deadline = tugasnya.deadline_tugas()
+            id_tugas = tugasnya.id
+            tugas_pengguna.append(
+                [nama_user, judul, progress, deadline, id_tugas])
+
+    context['tugas_pengguna'] = tugas_pengguna
+
+    return render(request, 'dashboard/tugas_staff.html', context)
+
+
 """ STAFF """
 
 
-@login_required(login_url='login')
+@ login_required(login_url='login')
 def staff(request):
     nama = request.user.first_name
     context = {'nama': nama}
@@ -179,17 +211,19 @@ def staff(request):
     return render(request, 'dashboard/staff.html', context)
 
 
-@login_required(login_url='login')
+@ login_required(login_url='login')
 def lihat_tugas(request):
 
     if apamanager(request.user):
         return redirect('manager')
 
     tugas_rutin, tugas_proyek = dapatkantugas(request.user.id)
+    tugas_selesai = tugasselesai(request.user.id)
+    tugas_deadline = tugasdeadline(request.user.id)
 
     nama = request.user.first_name
     context = {'nama': nama, 'tugas_rutin': tugas_rutin,
-               'tugas_proyek': tugas_proyek}
+               'tugas_proyek': tugas_proyek, 'tugas_selesai': tugas_selesai, 'tugas_deadline': tugas_deadline}
     return render(request, 'dashboard/lihat_tugas.html', context)
 
 
@@ -201,23 +235,16 @@ def detail_tugas(request, tugas_id):
 
     if request.method == 'POST':
         a = Tugas.objects.get(pk=tugas_id)
-        a.selesai += 1
-        a.save()
+        if (a.kuantitas > a.selesai) and a.status != 'Deadline':
+            a.selesai += 1
+            if (a.kuantitas == a.selesai) and (a.selesai > a.acc):
+                a.status = 'Selesai'
+                a.selesai_pada = timezone.now()
+                a.save()
+            a.save()
 
     nama = request.user.first_name
     context = detailtugas(tugas_id)
     context['nama'] = nama
 
     return render(request, 'dashboard/detail_tugas.html', context)
-
-
-@login_required(login_url='login')
-def tugas_staff(request):
-
-    if not apamanager(request.user):
-        return redirect('staff')
-
-    nama = request.user.first_name
-    context = {}
-    context['nama'] = nama
-    return render(request, 'dashboard/tugas_staff.html', context)

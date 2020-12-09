@@ -46,14 +46,43 @@ def dapatkantugas(user_id):
     tugas_proyek = []
 
     for tugas in tugasnya:
-        if tugas.jenis == "Rutin":
+        if tugas.status != "On Progress":
+            continue
+        elif tugas.jenis == "Rutin":
+            dibuat_pada = tugas.formatwaktu(tugas.dibuat_pada)
             tugas_rutin.append(
-                [tugas, tugas.deadline_tugas(), tugas.progressnya()])
+                [tugas, tugas.deadline_tugas(), tugas.progressnya(), dibuat_pada, tugas.status])
         elif tugas.jenis == "Proyek":
+            dibuat_pada = tugas.formatwaktu(tugas.dibuat_pada)
             tugas_proyek.append(
-                [tugas, tugas.deadline_tugas(), tugas.progressnya()])
-
+                [tugas, tugas.deadline_tugas(), tugas.progressnya(), dibuat_pada, tugas.status])
     return (tugas_rutin, tugas_proyek)
+
+
+def tugasselesai(user_id):
+    pengguna = User.objects.get(pk=user_id)
+    tugasnya = pengguna.tugas_set.all()
+    tugas_selesai = []
+
+    for tugas in tugasnya:
+        if tugas.status == "Selesai":
+            selesai_pada = tugas.formatwaktu(tugas.selesai_pada)
+            tugas_selesai.append([tugas, selesai_pada])
+
+    return tugas_selesai
+
+
+def tugasdeadline(user_id):
+    pengguna = User.objects.get(pk=user_id)
+    tugasnya = pengguna.tugas_set.all()
+    tugas_deadline = []
+
+    for tugas in tugasnya:
+        if tugas.status == "Deadline":
+            tugas_deadline.append(
+                [tugas.judul, tugas.formatwaktu(tugas.deadline), tugas.id])
+
+    return tugas_deadline
 
 
 def detailtugas(tugas_id):
@@ -73,3 +102,14 @@ def detailtugas(tugas_id):
         "deadline": deadlinenya,
         "selesai": selesainya
     }
+
+
+def ngecekdeadline():
+    tugas = Tugas.objects.all()
+    for a in tugas:
+        deadline = a.deadline
+        saat_ini = timezone.now()
+        apakah_deadline = (deadline - saat_ini)
+        if (apakah_deadline.days < 0):
+            a.status = "Deadline"
+            a.save()
