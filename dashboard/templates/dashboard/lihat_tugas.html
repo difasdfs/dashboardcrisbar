@@ -33,6 +33,7 @@
                 </tbody>
             </table>
 
+            {% if tugas_proyek %}
             <br>
             <h2>Proyek</h2>
             <br>
@@ -56,6 +57,7 @@
                     {% endfor %}
                 </tbody>
             </table>
+            {% endif %}
 
             <hr><br>
             <h2>Selesai</h2>
@@ -79,6 +81,8 @@
                 </tbody>
             </table>
 
+
+            {% if tugas_deadline %}
             <hr><br>
             <h2>Tidak Tuntas</h2>
             <br>
@@ -100,8 +104,7 @@
                     {% endfor %}
                 </tbody>
             </table>
-
-            <h2>Tuntas</h2>
+            {% endif %}
         </div>
     </div>
 </div>

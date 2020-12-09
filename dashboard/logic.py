@@ -2,6 +2,8 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.models import User
 from .models import *
 from django.utils import timezone
+from datetime import datetime
+import pytz
 
 
 def apamanager(user):
@@ -87,12 +89,26 @@ def tugasdeadline(user_id):
 
 def detailtugas(tugas_id):
     tugasnya = Tugas.objects.get(pk=tugas_id)
+
+    pemilik_tugas = tugasnya.pemilik_tugas
+    user = User.objects.get(username=pemilik_tugas)
+    pemilik_tugas = user.first_name
+    
     judulnya = tugasnya.judul
     isinya = tugasnya.isi
     dibuat_pada = tugasnya.formatwaktu(tugasnya.dibuat_pada)
     statusnya = tugasnya.status
     deadlinenya = tugasnya.formatwaktu(tugasnya.deadline)
     selesainya = tugasnya.progressnya()
+    deadline_mentah = str(tugasnya.deadline)
+    selesai = tugasnya.selesai
+
+    deadline_m = deadline_mentah.split()
+    deadline_mentah = deadline_m[0] + "T" + deadline_m[1][:5]
+
+    kuantitas = tugasnya.kuantitas
+    # deadline mentah
+    # kuantitas
 
     return {
         "judul": judulnya,
@@ -100,7 +116,12 @@ def detailtugas(tugas_id):
         "dibuat_pada": dibuat_pada,
         "status": statusnya,
         "deadline": deadlinenya,
-        "selesai": selesainya
+        "selesai": selesainya,
+        "idnya" : tugas_id,
+        "staff" : pemilik_tugas,
+        "deadline_mentah" : str(deadline_mentah),
+        "kuantitas" : kuantitas,
+        "selesai" : selesai
     }
 
 
@@ -110,6 +131,7 @@ def ngecekdeadline():
         deadline = a.deadline
         saat_ini = timezone.now()
         apakah_deadline = (deadline - saat_ini)
-        if (apakah_deadline.days < 0):
+        if (apakah_deadline.days < 0) and (a.status == 'On Progress'):
             a.status = "Deadline"
             a.save()
+

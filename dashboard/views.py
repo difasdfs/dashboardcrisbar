@@ -48,9 +48,22 @@ def loginpage(request):
 
 @login_required(login_url='login')
 def profile(request):
+    usr = User.objects.get(pk=request.user.id)
+    username = usr.username
     nama = request.user.first_name
-    context = {'nama': nama}
+    context = {'nama': nama, 'username': username}
     manager = apamanager(request.user)
+
+    if request.method == 'POST':
+        name = request.POST.get('nama_lengkap')
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        usr.username = username
+        usr.first_name = name        
+        usr.set_password(password)
+        usr.save()
+
+        return redirect('login')
 
     if manager:
         return render(request, 'dashboard/profile.html', context)
@@ -170,7 +183,8 @@ def masukkantugas(request, user_id):
 
 @ login_required(login_url='login')
 def tugas_staff(request):
-
+    
+    ngecekdeadline()
     context = {}
     if not apamanager(request.user):
         return redirect('staff')
@@ -181,6 +195,8 @@ def tugas_staff(request):
     context['nama'] = nama
 
     tugas_pengguna = []
+    tugas_selesai = []
+    tugas_deadline = []
 
     for user in anggota:
         nama_user = user.first_name
@@ -191,13 +207,78 @@ def tugas_staff(request):
             progress = tugasnya.progressnya()
             deadline = tugasnya.deadline_tugas()
             id_tugas = tugasnya.id
-            tugas_pengguna.append(
-                [nama_user, judul, progress, deadline, id_tugas])
+            jenis = tugasnya.jenis
+            status = tugasnya.status
+            if status == 'Selesai':
+                selesai_pada = tugasnya.formatwaktu(tugasnya.selesai_pada)
+                tugas_selesai.append([nama_user, judul, progress, selesai_pada, id_tugas, status])
+            elif status == 'Deadline':
+                deadlinenya = tugasnya.formatwaktu(tugasnya.deadline)
+                tugas_deadline.append([nama_user, judul, progress, deadlinenya, id_tugas, status])
+            else:
+                tugas_pengguna.append([nama_user, judul, progress, deadline, id_tugas, status, jenis])
 
     context['tugas_pengguna'] = tugas_pengguna
+    context['tugas_selesai'] = tugas_selesai
+    context['tugas_deadline'] = tugas_deadline
 
     return render(request, 'dashboard/tugas_staff.html', context)
 
+@ login_required(login_url='login')
+def detail_tugas_manager(request, tugas_id):
+    if not apamanager(request.user):
+        return redirect('staff')
+    
+    nama = request.user.first_name
+    context = detailtugas(tugas_id)
+    context['nama'] = nama
+    context['idnya'] = tugas_id
+
+    if request.method == 'POST':
+        tugas = Tugas.objects.get(pk=tugas_id)
+        tugas.delete()
+        return redirect('tugas_staff')
+
+    return render(request, 'dashboard/detail_tugas_manager.html', context)
+
+
+@ login_required(login_url='login')
+def edit_tugas(request, tugas_id):
+
+    if not apamanager(request.user):
+        return redirect('staff')
+
+    nama = request.user.first_name
+    context = detailtugas(tugas_id)
+    status = context['status']
+    context['nama'] = nama
+
+    if request.method == 'POST':
+        judul = request.POST.get('judul')
+        isi = request.POST.get('isi')
+        deadline = request.POST.get('deadline')
+        kuantitas = request.POST.get('kuantitas')
+        selesai = request.POST.get('selesai')
+        t = Tugas.objects.get(pk=tugas_id)
+        t.judul = judul
+        t.isi = isi
+        t.deadline = deadline
+        t.kuantitas = kuantitas
+        t.selesai = selesai
+
+        if (t.kuantitas > t.selesai) and (status == 'Selesai'):
+            t.status = 'On Progress'
+        elif request.POST.get('status') == 'Selesai':
+            t.selesai_pada = timezone.now()
+            t.selesai = t.kuantitas
+            t.status = 'Selesai'
+        else:
+            t.status = request.POST.get('status')
+
+        t.save()
+        return redirect('tugas_staff')
+
+    return render(request, 'dashboard/edit_tugas.html', context)
 
 """ STAFF """
 

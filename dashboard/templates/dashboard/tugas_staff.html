@@ -17,6 +17,8 @@
                         <th scope="col">Judul</th>
                         <th scope="col">Progress</th>
                         <th scope="col">Deadline</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Jenis</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -27,10 +29,69 @@
                         <td><a href="{{isi.4}}">{{isi.1}}</a></td>
                         <td>{{isi.2}}</td>
                         <td>{{isi.3}}</td>
+                        <td>{{isi.5}}</td>
+                        <td>{{isi.6}}</td>
                     </tr>
                     {% endfor %}
                 </tbody>
             </table>
+
+            <h2>Selesai</h2>
+
+            <br>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">No</th>
+                        <th scope="col">Nama</th>
+                        <th scope="col">Judul</th>
+                        <th scope="col">Progress</th>
+                        <th scope="col">Selesai pada</th>
+                        <th scope="col">Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for isi in tugas_selesai %}
+                    <tr>
+                        <th scope="row">{{forloop.counter}}</th>
+                        <td>{{isi.0}}</td>
+                        <td><a href="{{isi.4}}">{{isi.1}}</a></td>
+                        <td>{{isi.2}}</td>
+                        <td>{{isi.3}}</td>
+                        <td>{{isi.5}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <h2>Tidak Tuntas</h2>
+
+            <br>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">No</th>
+                        <th scope="col">Nama</th>
+                        <th scope="col">Judul</th>
+                        <th scope="col">Progress</th>
+                        <th scope="col">Deadline</th>
+                        <th scope="col">Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for isi in tugas_deadline %}
+                    <tr>
+                        <th scope="row">{{forloop.counter}}</th>
+                        <td>{{isi.0}}</td>
+                        <td><a href="{{isi.4}}">{{isi.1}}</a></td>
+                        <td>{{isi.2}}</td>
+                        <td>{{isi.3}}</td>
+                        <td>{{isi.5}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
         </div>
     </div>
 

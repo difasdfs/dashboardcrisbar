@@ -23,5 +23,22 @@ USER
 - Username
 - Passoword
 
-Yang belum :
-gimana caranya supaya tugas tersimpan dalam database ?
+------------------------------------------------------------------------------------------------------------------------------
+10 Desember 2020
+
+apa aja yang mau diedit ?
+
+- Judul
+- Isi
+- Status
+- Deadline
+
+judul = method.POST.get('judul')
+isi = method.POST.get('isi')
+deadline = method.POST.get('deadline')
+kuantitas = method.POST.get('kuantitas')
+t = Tugas.objects.get(pk=id)
+t.judul = judul
+t.isi = isi
+t.deadline = deadline
+t.kuantitas = kuantitas

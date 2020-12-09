@@ -3,10 +3,8 @@
 
 <hr>
 <div class="container">
-
-
     <div class="row">
-        {% include 'dashboard/sidebarstaff.html' %}
+        {% include 'dashboard/sidebar.html' %}
         <div class="col">
             <h1>Detail</h1>
             <br>
@@ -40,15 +38,21 @@
                     </tr>
                     <tr>
                         <th scope="row">Selesai</th>
-                        <td>{{selesai}} / {{kuantitas}}</td>
+                        <td>{{selesai}}/{{kuantitas}}</td>
                     </tr>
                 </tbody>
             </table>
 
+            <span><button type="button" class="btn btn-warning mb-2">
+                    <a href="{% url 'edit_tugas' idnya %}">edit</a>
+                </button></span>
+
+            <br>
             <form action="" method="POST">
                 {% csrf_token %}
-                <button type="submit" class="btn btn-primary">Selesai</button>
+                <button type="submit" class="btn btn-danger">Hapus</button>
             </form>
+
         </div>
     </div>
 </div>

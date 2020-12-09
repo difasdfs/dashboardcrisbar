@@ -14,5 +14,7 @@ urlpatterns = [
     path('lihat_tugas/', views.lihat_tugas, name='lihattugas'),
     path('lihat_tugas/<int:tugas_id>/', views.detail_tugas, name='detail_tugas'),
     path('profile/', views.profile, name='profile'),
-    path('tugas_staff/', views.tugas_staff, name='tugas_staff')
+    path('tugas_staff/', views.tugas_staff, name='tugas_staff'),
+    path('tugas_staff/<int:tugas_id>/', views.detail_tugas_manager, name='detail_tugas_manager'),
+    path('edit_tugas/<int:tugas_id>', views.edit_tugas, name='edit_tugas'),
 ]

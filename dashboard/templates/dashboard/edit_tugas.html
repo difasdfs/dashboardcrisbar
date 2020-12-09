@@ -1,0 +1,63 @@
+{% extends 'dashboard/main.html' %}
+{% block content %}
+
+<hr>
+<div class="container">
+
+
+    <div class="row">
+        {% include 'dashboard/sidebar.html' %}
+        <div class="col">
+            <h1>Edit Tugas</h1>
+
+            <p>Halaman ini untuk ngedit tugas, tapi belum dikerjain</p>
+            <form method="POST" action="" class="mt-4">
+                {% csrf_token %}
+
+                <div class="form-group">
+                    <label for="nama_lengkap">Nama Staff : <strong>{{staff}}</strong></label>
+                    <br>
+                </div>
+
+                <div class="form-group">
+                    <label for="judul">Judul Tugas : </label>
+                    <br>
+                    <input type="text" class="form-control" id="judul" aria-describedby="emailHelp" name="judul"
+                        value="{{judul}}" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="isi">Isi tugas :</label>
+                    <br>
+                    <textarea id="isi" name="isi" rows="5" cols="120" required>{{isi}}</textarea>
+                </div>
+
+                <label for="deadline">Deadline : </label>
+                <input type="datetime-local" id="deadline" name="deadline" value="{{deadline_mentah}}" required>
+
+                <br><br>
+                <label for="kuantitas">Kuantitas :</label>
+                <br>
+                <input type="number" id="kuantitas" name="kuantitas" min="1" max="1000" value="{{kuantitas}}" required>
+
+                <br><br>
+                <label for="selesai">Selesai :</label>
+                <br>
+                <input type="number" id="selesai" name="selesai" min="0" max="1000" value="{{selesai}}" required>
+
+                <br><br>
+                <label for="status">Status : </label>
+                <br>
+                <select id="status" name="status">
+                    <option value="On Progress">On Progress</option>
+                    <option value="Hold">Hold</option>
+                    <option value="Selesai">Selesai</option>
+                </select>
+
+                <br><br>
+                <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
