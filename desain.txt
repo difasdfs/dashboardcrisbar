@@ -42,3 +42,38 @@ t.judul = judul
 t.isi = isi
 t.deadline = deadline
 t.kuantitas = kuantitas
+
+-----------------------------------------------------------------------------------------------------------------------------
+10 Desember 2020 (part 2)
+
+- liat pembacaan dari Tugas.deadline
+- bikin Method, return format strin "2020-12-30H21:00"
+
+# script
+from dashboard.models import Tugas
+t = Tugas.objects.get(pk=15)
+deadline = t.deadline
+print(deadline)
+print(type(deadline))
+setring = str(deadline)
+
+deadline_m = deadline_mentah.split()
+deadline_mentah = deadline_m[0] + "T" + deadline_m[1][:5]
+------------------------------------------------------------------------------------------------------------------------------------
+
+SELESAI PADA
+selesai_pada = tugasnya.formatwaktu(tugasnya.selesai_pada)
+
+---------------------------------------------------------------------------------------------------------------------------------------
+bagaimana cara merubah password dan username ?
+
+id = 10, difahr, difahr
+difahr, hrdifa
+
+from django.contrib.auth.models import User
+usr = User.objects.get(pk=10)
+nama = usr.first_name
+username = usr.username
+usr.set_password('hrdifa')
+usr.save()
+

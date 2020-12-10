@@ -1,0 +1,1 @@
+web: gunicorn crisbardashboard.wsgi --log-file -

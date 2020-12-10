@@ -23,9 +23,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = '8ki0_(%9%&w2u431h8#wrbl5ldk(79cu*q$fr9#+%pw1&azp#p'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['192.168.100.5', '127.0.0.1']
+ALLOWED_HOSTS = ['192.168.100.5', '127.0.0.1', 'dashboard-crisbar.herokuapp.com']
 
 
 # Application definition
