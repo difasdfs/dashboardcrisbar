@@ -75,13 +75,14 @@ def profile(request):
 
 
 def logoutuser(request):
+    # ini halaman logout
     logout(request)
     return redirect('login')
 
 
 """ MANAGER """
 
-
+# test
 @login_required(login_url='login')
 def manager(request):
     nama = request.user.first_name
