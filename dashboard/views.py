@@ -269,6 +269,8 @@ def edit_tugas(request, tugas_id):
 
         if (t.kuantitas > t.selesai) and (status == 'Selesai'):
             t.status = 'On Progress'
+        elif (t.selesai >= t.kuantitas ):
+            t.status = 'Selesai'
         elif request.POST.get('status') == 'Selesai':
             t.selesai_pada = timezone.now()
             t.selesai = t.kuantitas
@@ -281,9 +283,8 @@ def edit_tugas(request, tugas_id):
 
     return render(request, 'dashboard/edit_tugas.html', context)
 
+
 """ STAFF """
-
-
 @ login_required(login_url='login')
 def staff(request):
     nama = request.user.first_name
