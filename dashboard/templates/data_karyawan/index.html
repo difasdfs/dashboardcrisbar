@@ -1,0 +1,38 @@
+{% extends 'dashboard/main.html' %}
+{% block content %}
+
+<hr>
+<div class="container">
+    <div class="row">
+        {% include 'data_karyawan/sidebar.html' %}
+        <div class="col">
+            <h1>Halaman Data Karyawan</h1>
+
+            <!-- nik, nama, jabatan, area -->
+            <br>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">No</th>
+                        <th scope="col">NIK</th>
+                        <th scope="col">Nama</th>
+                        <th scope="col">Jabatan</th>
+                        <th scope="col">Area</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">1</th>
+                        <td>0019</td>
+                        <td><a href="{% url 'detail' %}">NOVI RESTI OKTAVIANI</a></td>
+                        <td>Finance Manager</td>
+                        <td>Office</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

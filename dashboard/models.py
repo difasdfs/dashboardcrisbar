@@ -92,3 +92,69 @@ class Tugas(models.Model):
             menit = "0" + menit
 
         return jam + ":" + menit + ", " + hari + " " + bulan + " " + tahun
+
+class DataKaryawan(models.Model):
+    AREA = (
+        ('Office', 'Office'),
+        ('Jatinangor', 'Jatinangor'),
+        ('Cisitu', 'Cisitu'),
+        ('Unjani', 'Unjani'),
+        ('Metro', 'Metro'),
+        ('Sukajadi', 'Sukajadi'),
+        ('Telkom Sukabirus', 'Telkom Sukabirus'),
+        ('Telkom Sukapura', 'Telkom Sukapura'),
+    )
+
+    JENIS_KELAMIN = (
+        ('L', 'L'),
+        ('P', 'P'),
+    )
+
+    PENDIDIKAN = (
+        ('SD', 'SD'),
+        ('SMP', 'SMP'),
+        ('SMA/SMK', 'SMA/SMK'),
+        ('S1', 'S1'),
+        ('S2', 'S2'),
+        ('S3', 'S3'),
+    )
+
+    MARITAL = (
+        ('BELUM MENIKAH', 'BELUM MENIKAH'),
+        ('MENIKAH', 'MENIKAH'),
+        ('CERAI', 'CERAI')
+    )
+
+    no_id_fingerprint = models.IntegerField()
+    nik = models.CharField(max_length=4)
+    nama = models.CharField(max_length=100)
+    area = models.CharField(max_length=30, choices=AREA)
+    level_manajemen = models.CharField(max_length=40)
+    nama_posisi = models.CharField(max_length=30)
+    kode_posisi = models.CharField(max_length=5)
+    status_jabatan = models.CharField(max_length=40, null=True)
+    jabatan_baru = models.CharField(max_length=40, null=True)
+    status_pegawai = models.CharField(max_length=50, null=True)
+    tanggal_masuk = models.DateTimeField('Tanggal Masuk', null=True)
+    no_ktp = models.CharField(max_length=30, null=True)
+    tempat_lahir = models.CharField(max_length=40, null=True)
+    tanggal_lahir = models.DateTimeField('Tanggal Lahir', null=True)
+    jenis_kelamin = models.CharField(max_length=1, choices=JENIS_KELAMIN)
+    agama = models.CharField(max_length=20, null=True)
+    pendidikan = models.CharField(max_length=10, choices=PENDIDIKAN)
+    jurusan = models.CharField(max_length=40, null=True)
+    alamat = models.CharField(max_length=100, null=True)
+    no_hp = models.CharField(max_length=20)
+    marital_status = models.CharField(max_length=20, choices=MARITAL)
+    anak = models.IntegerField()
+    no_rekening = models.CharField(max_length=100, null=True)
+    bpjs_ketenagakerjaan = models.CharField(max_length=100, null=True)
+    nama_darurat = models.CharField(max_length=100, null=True)
+    alamat_darurat = models.CharField(max_length=100, null=True)
+    hubungan_darurat = models.CharField(max_length=100, null=True)
+    no_hp_darurat = models.CharField(max_length=100, null=True)
+
+    # metod lama bekerja
+    # umur
+    def __str__(self):
+        return self.nama

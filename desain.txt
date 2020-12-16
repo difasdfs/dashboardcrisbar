@@ -77,3 +77,46 @@ username = usr.username
 usr.set_password('hrdifa')
 usr.save()
 
+-----------------------------------------------------------------------------------------
+Buat model database data karyawan
+
+no_id_fingerprint (int)
+nik (string, auto_increment)
+status_lamaran (string)
+nama (string)
+area (string)
+level_menejemen (string)
+nama_posisi (string)
+kode_posisi (string)
+status_jabatan (string, boleh kosong)
+jabatan_baru (string)
+status_pegawai (string)
+tanggal_masuk (date)
+no_ktp (string)
+tempat_lahir (string)
+tanggal_lahir (date)
+jenis_kelamin (string, pilihan)
+agama (string)
+pendidikan (string)
+jurusan (string, boleh kosong)
+alamat (string)
+no_hp (string)
+marital_status (string, pilihan)
+anak (int, boleh kosong)
+
+no_rekening (string)
+
+bpjs_ketenagakerjaan (string)
+
+
+METHOD :
+lama_bekerja (date)
+umur (integer)
+
+---------------------------------------------------------------------------------------------------------------------------------------
+Permission Data karyawan
+
+Create : HR
+Read : Manager + HRE
+Update : HR
+Delete : HR

@@ -1,0 +1,71 @@
+{% extends 'dashboard/main.html' %}
+{% block content %}
+
+<hr>
+<div class="container">
+    <div class="row">
+        {% include 'data_karyawan/sidebar.html' %}
+        <div class="col">
+            <h1>Detail</h1>
+
+            <br>
+            <table class="table table-bordered">
+                <tbody>
+                    <tr>
+                        <th scope="row">Nama</th>
+                        <td>NOVI RESTI OKTAVIANI</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">NIK</th>
+                        <td>0019</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">No ID Fingerprint</th>
+                        <td>74</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Area</th>
+                        <td>Office</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Level Manajemen</th>
+                        <td>Management</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Nama Posisi</th>
+                        <td>Finance Manager</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <hr>
+            <br>
+            <table class="table table-bordered">
+                <tbody>
+                    <tr>
+                        <th scope="row">Nama Darurat</th>
+                        <td>NOVI RESTI OKTAVIANI</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Alamat Darurat</th>
+                        <td>di jalan</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Hubungan Darurat</th>
+                        <td>Kakak</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">No HP Darurat</th>
+                        <td>123456789</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <hr>
+
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

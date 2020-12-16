@@ -86,7 +86,7 @@ def logoutuser(request):
 @login_required(login_url='login')
 def manager(request):
     nama = request.user.first_name
-    context = {'nama': nama}
+    context = {'nama': nama, 'data_kar' : True}
     if not apamanager(request.user):
         return redirect('staff')
     return render(request, 'dashboard/manager.html', context)
@@ -114,7 +114,7 @@ def regisstaff(request):
         return redirect('daftarstaff')
 
     else:
-        context = {'bagian': bagian, 'nama': nama}
+        context = {'bagian': bagian, 'nama': nama, 'data_kar' : True}
 
     return render(request, 'dashboard/regisstaff.html', context)
 
@@ -128,7 +128,7 @@ def daftarstaff(request):
     bagian = bagianapa(request.user)
     anggota = anggotabagian(nama, bagian)
 
-    context = {'nama': nama, 'anggota': anggota}
+    context = {'nama': nama, 'anggota': anggota, 'data_kar' : True}
     return render(request, 'dashboard/daftarstaff.html', context)
 
 
@@ -178,7 +178,7 @@ def masukkantugas(request, user_id):
     nama_staff = objek_staff.first_name
 
     nama = request.user.first_name
-    context = {'nama': nama, 'nama_staff': nama_staff}
+    context = {'nama': nama, 'nama_staff': nama_staff, 'data_kar' : True}
     return render(request, 'dashboard/inputtugas.html', context)
 
 
@@ -186,7 +186,7 @@ def masukkantugas(request, user_id):
 def tugas_staff(request):
     
     ngecekdeadline()
-    context = {}
+    context = {'data_kar' : True}
     if not apamanager(request.user):
         return redirect('staff')
 
@@ -289,6 +289,10 @@ def edit_tugas(request, tugas_id):
 def staff(request):
     nama = request.user.first_name
     context = {'nama': nama}
+
+    if request.user.last_name == 'Human Resource':
+        context['data_kar'] = True
+
     if apamanager(request.user):
         return redirect('manager')
     return render(request, 'dashboard/staff.html', context)
@@ -307,6 +311,10 @@ def lihat_tugas(request):
     nama = request.user.first_name
     context = {'nama': nama, 'tugas_rutin': tugas_rutin,
                'tugas_proyek': tugas_proyek, 'tugas_selesai': tugas_selesai, 'tugas_deadline': tugas_deadline}
+    
+    if request.user.last_name == 'Human Resource':
+        context['data_kar'] = True
+
     return render(request, 'dashboard/lihat_tugas.html', context)
 
 
@@ -330,4 +338,21 @@ def detail_tugas(request, tugas_id):
     context = detailtugas(tugas_id)
     context['nama'] = nama
 
+    if request.user.last_name == 'Human Resource':
+        context['data_kar'] = True
+
     return render(request, 'dashboard/detail_tugas.html', context)
+
+
+""" HALAMAN DATA KARYAWAN """
+@login_required(login_url='login')
+def data_karyawan(request):
+
+    context = {'nama' : request.user.first_name, 'data_kar':True}
+    return render(request, 'data_karyawan/index.html', context)
+
+
+@login_required(login_url='login')
+def detail_data(request):
+    context = {'nama' : request.user.first_name, 'data_kar':True}
+    return render(request, 'data_karyawan/detail.html', context)
