@@ -19,4 +19,5 @@ urlpatterns = [
     path('edit_tugas/<int:tugas_id>', views.edit_tugas, name='edit_tugas'),
     path('data_karyawan/', views.data_karyawan, name='data_karyawan'),
     path('detail/', views.detail_data, name='detail'),
+    path('tambah_data_karyawan/', views.tambah_data_karyawan, name='tambah_data_karyawan'),
 ]

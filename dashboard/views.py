@@ -356,3 +356,9 @@ def data_karyawan(request):
 def detail_data(request):
     context = {'nama' : request.user.first_name, 'data_kar':True}
     return render(request, 'data_karyawan/detail.html', context)
+
+
+@login_required(login_url='login')
+def tambah_data_karyawan(request):
+    context = {'nama' : request.user.first_name, 'data_kar':True}
+    return render(request, 'data_karyawan/tambah_data_karyawan.html', context)

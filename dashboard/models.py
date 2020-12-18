@@ -114,6 +114,7 @@ class DataKaryawan(models.Model):
         ('SD', 'SD'),
         ('SMP', 'SMP'),
         ('SMA/SMK', 'SMA/SMK'),
+        ('D3', 'D3'),
         ('S1', 'S1'),
         ('S2', 'S2'),
         ('S3', 'S3'),
@@ -123,6 +124,11 @@ class DataKaryawan(models.Model):
         ('BELUM MENIKAH', 'BELUM MENIKAH'),
         ('MENIKAH', 'MENIKAH'),
         ('CERAI', 'CERAI')
+    )
+
+    STATUS = (
+        ('AKTIF','AKTIF'),
+        ('KELUAR', 'KELUAR'),
     )
 
     no_id_fingerprint = models.IntegerField()
@@ -135,10 +141,10 @@ class DataKaryawan(models.Model):
     status_jabatan = models.CharField(max_length=40, null=True)
     jabatan_baru = models.CharField(max_length=40, null=True)
     status_pegawai = models.CharField(max_length=50, null=True)
-    tanggal_masuk = models.DateTimeField('Tanggal Masuk', null=True)
+    tanggal_masuk = models.DateField('Tanggal Masuk', null=True)
     no_ktp = models.CharField(max_length=30, null=True)
     tempat_lahir = models.CharField(max_length=40, null=True)
-    tanggal_lahir = models.DateTimeField('Tanggal Lahir', null=True)
+    tanggal_lahir = models.DateField('Tanggal Lahir', null=True)
     jenis_kelamin = models.CharField(max_length=1, choices=JENIS_KELAMIN)
     agama = models.CharField(max_length=20, null=True)
     pendidikan = models.CharField(max_length=10, choices=PENDIDIKAN)
@@ -150,9 +156,11 @@ class DataKaryawan(models.Model):
     no_rekening = models.CharField(max_length=100, null=True)
     bpjs_ketenagakerjaan = models.CharField(max_length=100, null=True)
     nama_darurat = models.CharField(max_length=100, null=True)
-    alamat_darurat = models.CharField(max_length=100, null=True)
+
     hubungan_darurat = models.CharField(max_length=100, null=True)
     no_hp_darurat = models.CharField(max_length=100, null=True)
+
+    status = models.CharField(max_length=100, null=True, choices=STATUS)
 
     # metod lama bekerja
     # umur
