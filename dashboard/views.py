@@ -357,10 +357,19 @@ def data_karyawan(request):
 
 @login_required(login_url='login')
 def detail_data(request, id_karyawan):
+    
+    context = {}
+
     data = DataKaryawan.objects.get(pk=id_karyawan)
     data.update_data()
 
-    context = {'nama' : request.user.first_name, 'data_kar':True, 'data':data}
+    if data.status == 'AKTIF':
+        context['masih_aktif'] = True
+
+    context['nama'] = request.user.first_name
+    context['data_kar'] = True
+    context['data'] = data
+
     return render(request, 'data_karyawan/detail.html', context)
 
 
@@ -567,6 +576,20 @@ def halaman_edit(request, id_karyawan):
         d.inisialisasi()
         d.save()
         return redirect('data_karyawan')
-        # path('detail/<int:id_karyawan>', views.detail_data, name='detail'),
 
     return render(request, 'data_karyawan/halaman_edit.html', context)
+
+
+@login_required(login_url='login')
+def karyawan_keluar(request, id_karyawan):
+
+    if request.method == 'POST':
+        data = DataKaryawan.objects.get(pk=id_karyawan)
+        data.tanggal_keluar = request.POST.get('tanggal_keluar')
+        data.alasan_keluar = request.POST.get('alasan_keluar')
+        data.status = 'KELUAR'
+        data.save()
+
+        return redirect('data_karyawan')
+
+    return render(request, 'data_karyawan/karyawan_keluar.html')

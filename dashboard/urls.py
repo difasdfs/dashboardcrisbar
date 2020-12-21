@@ -22,4 +22,5 @@ urlpatterns = [
     path('tambah_data_karyawan/', views.tambah_data_karyawan, name='tambah_data_karyawan'),
     path('karyawan_tidak_aktif/', views.karyawan_tidak_aktif, name='karyawan_tidak_aktif'),
     path('halaman_edit/<int:id_karyawan>', views.halaman_edit, name='halaman_edit'),
+    path('karyawan_keluar/<int:id_karyawan>', views.karyawan_keluar, name='karyawan_keluar'),
 ]

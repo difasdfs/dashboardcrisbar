@@ -145,9 +145,33 @@
                 </tbody>
             </table>
 
+            {% if not masih_aktif %}
+            <hr>
+            <br>
+            <table class="table table-bordered">
+                <tbody>
+                    <tr>
+                        <th scope="row">Tanggal Keluar</th>
+                        <td>{{data.tanggal_keluar | date:"d M Y" }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Alasan Keluar</th>
+                        <td>{{data.alasan_keluar}}</td>
+                    </tr>
+                </tbody>
+            </table>
+            {% endif %}
+
             <a href="{% url 'halaman_edit' data.id %}" class="btn btn-warning btn-lg" role="button"
                 aria-pressed="true">Ubah</a>
 
+            {% if masih_aktif %}
+            <a href="{% url 'karyawan_keluar' data.id %}" class="btn btn-danger btn-lg" role="button"
+                aria-pressed="true">Keluar</a>
+            {% endif %}
+
+            <br>
+            <br>
             <br>
             <br>
         </div>

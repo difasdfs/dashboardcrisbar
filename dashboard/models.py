@@ -164,6 +164,8 @@ class DataKaryawan(models.Model):
 
     status = models.CharField(max_length=100, null=True, choices=STATUS)
 
+    tanggal_keluar = models.DateField('Tanggal Keluar', null=True)
+    alasan_keluar = models.CharField(max_length=200, null=True)
     # metod lama bekerja
     # umur
     def __str__(self):
@@ -183,16 +185,17 @@ class DataKaryawan(models.Model):
 
     def update_data(self):
         # umur
-        lahir = self.tanggal_lahir
-        hariini = datetime.date.today()
-        selisih = hariini - lahir
-        self.umur = selisih.days // 365
+        if self.status != 'KELUAR':
+            lahir = self.tanggal_lahir
+            hariini = datetime.date.today()
+            selisih = hariini - lahir
+            self.umur = selisih.days // 365
 
-        # lama bekerja
-        masuk = self.tanggal_masuk
-        selisih = hariini - masuk
-        selisih = selisih.days
-        bulan = selisih // 30
-        selisih = selisih - (bulan*30)
+            # lama bekerja
+            masuk = self.tanggal_masuk
+            selisih = hariini - masuk
+            selisih = selisih.days
+            bulan = selisih // 30
+            selisih = selisih - (bulan*30)
 
-        self.lama_bekerja = str(bulan) + " bulan, " + str(selisih) + " hari"
+            self.lama_bekerja = str(bulan) + " bulan, " + str(selisih) + " hari"
