@@ -347,18 +347,226 @@ def detail_tugas(request, tugas_id):
 """ HALAMAN DATA KARYAWAN """
 @login_required(login_url='login')
 def data_karyawan(request):
-
-    context = {'nama' : request.user.first_name, 'data_kar':True}
+    
+    d = DataKaryawan.objects.filter(status='AKTIF')
+    
+    context = {'nama' : request.user.first_name, 'data_kar':True, 'data' : d}
+    
     return render(request, 'data_karyawan/index.html', context)
 
 
 @login_required(login_url='login')
-def detail_data(request):
-    context = {'nama' : request.user.first_name, 'data_kar':True}
+def detail_data(request, id_karyawan):
+    data = DataKaryawan.objects.get(pk=id_karyawan)
+    data.update_data()
+
+    context = {'nama' : request.user.first_name, 'data_kar':True, 'data':data}
     return render(request, 'data_karyawan/detail.html', context)
 
 
 @login_required(login_url='login')
+def karyawan_tidak_aktif(request):
+
+    d = DataKaryawan.objects.filter(status='KELUAR')
+    
+    context = {'nama' : request.user.first_name, 'data_kar':True, 'data' : d}
+    return render(request, 'data_karyawan/karyawan_tidak_aktif.html', context)
+
+
+@login_required(login_url='login')
 def tambah_data_karyawan(request):
+
+    if request.method == 'POST':
+        dno_id_fingerprint = request.POST.get('no_id_fingerprint')
+        dnama = request.POST.get('nama')
+        darea = request.POST.get('area')
+        dlevel_manajemen = request.POST.get('level_manajemen')
+        dnama_posisi = request.POST.get('nama_posisi')
+        dkode_posisi = request.POST.get('kode_posisi')
+        dstatus_jabatan = request.POST.get('status_jabatan')
+        djabatan_baru = request.POST.get('jabatan_baru')
+        dstatus_pegawai = request.POST.get('status_pegawai')
+        dtanggal_masuk = request.POST.get('tanggal_masuk')
+        dno_ktp = request.POST.get('no_ktp')
+        dtempat_lahir = request.POST.get('tempat_lahir')
+        dtanggal_lahir = request.POST.get('tanggal_lahir')
+        djenis_kelamin = request.POST.get('jenis_kelamin')
+        dagama = request.POST.get('agama')
+        dpendidikan = request.POST.get('pendidikan')
+        djurusan = request.POST.get('jurusan')
+        dalamat = request.POST.get('alamat')
+        dno_hp = request.POST.get('no_hp')
+        dmarital_status = request.POST.get('marital_status')
+        danak = request.POST.get('anak')
+        dno_rekening = request.POST.get('no_rekening')
+        dbpjs_ketenagakerjaan = request.POST.get('bpjs_ketenagakerjaan')
+        dstatus = request.POST.get('status')
+        
+        # -------------------------------------------------------------
+        # darurat
+        dnama_darurat = request.POST.get('nama_darurat')
+        dalamat_darurat = request.POST.get('alamat_darurat')
+        dhubungan_darurat = request.POST.get('hubungan_darurat')
+        dno_hp_darurat = request.POST.get('no_hp_darurat')
+
+        d = DataKaryawan(
+            no_id_fingerprint = dno_id_fingerprint,
+            nama = dnama,
+            area = darea,
+            level_manajemen = dlevel_manajemen,
+            nama_posisi = dnama_posisi,
+            kode_posisi = dkode_posisi,
+            status_jabatan = dstatus_jabatan,
+            jabatan_baru = djabatan_baru,
+            status_pegawai = dstatus_pegawai,
+            tanggal_masuk = dtanggal_masuk,
+            no_ktp = dno_ktp,
+            tempat_lahir = dtempat_lahir,
+            tanggal_lahir = dtanggal_lahir,
+            jenis_kelamin = djenis_kelamin,
+            agama = dagama,
+            pendidikan = dpendidikan,
+            jurusan = djurusan,
+            alamat = dalamat,
+            no_hp = dno_hp,
+            marital_status = dmarital_status,
+            anak = danak,
+            no_rekening = dno_rekening,
+            bpjs_ketenagakerjaan = dbpjs_ketenagakerjaan,
+            status = dstatus,
+            nama_darurat = dnama_darurat,
+            alamat_darurat = dalamat_darurat,
+            hubungan_darurat = dhubungan_darurat,
+            no_hp_darurat = dno_hp_darurat,
+        )
+        d.save()
+        d.pasang_nik()
+        d.inisialisasi()
+        d.save()
+        return redirect('data_karyawan')
+
     context = {'nama' : request.user.first_name, 'data_kar':True}
     return render(request, 'data_karyawan/tambah_data_karyawan.html', context)
+
+
+@login_required(login_url='login')
+def halaman_edit(request, id_karyawan):
+
+    d = DataKaryawan.objects.get(pk=id_karyawan)
+
+    context = {'nama' : request.user.first_name, 'data_kar':True, 'data' : d}
+
+    if d.area == 'Office':
+        context['area_office'] = True
+    elif d.area == 'Cisitu':
+        context['area_cisitu'] = True
+    elif d.area == 'Jatinangor':
+        context['area_jatinangor'] = True
+    elif d.area == 'Metro':
+        context['area_metro'] = True
+    elif d.area == 'Sukajadi':
+        context['area_sukajadi'] = True
+    elif d.area == 'Telkom Sukabirus':
+        context['area_telkom_sukabirus'] = True
+    elif d.area == 'Telkom Sukapura':
+        context['area_telkom_sukapura'] = True
+    elif d.area == 'Unjani':
+        context['area_unjadi'] = True
+
+    if d.jenis_kelamin == 'L':
+        context['lakilaki'] = True
+
+    if d.pendidikan == 'SD':
+        context['pendidikan_sd'] = True
+    elif d.pendidikan == 'SMP':
+        context['pendidikan_smp'] = True
+    elif d.pendidikan == 'SMA/SMK':
+        context['pendidikan_sma'] = True
+    elif d.pendidikan == 'D3':
+        context['pendidikan_d3'] = True
+    elif d.pendidikan == 'S1':
+        context['pendidikan_s1'] = True
+    elif d.pendidikan == 'S2':
+        context['pendidikan_s2'] = True
+    elif d.pendidikan == 'S3':
+        context['pendidikan_s3'] = True
+
+    if d.marital_status == 'BELUM MENIKAH':
+        context['status_belum'] = True
+    elif d.marital_status == 'MENIKAH':
+        context['status_menikah'] = True
+    elif d.marital_status == 'CERAI':
+        context['status_cerai'] = True
+
+    if d.status == 'AKTIF':
+        context['status_aktif'] = True
+
+    if request.method == 'POST':
+        dno_id_fingerprint = request.POST.get('no_id_fingerprint')
+        dnama = request.POST.get('nama')
+        darea = request.POST.get('area')
+        dlevel_manajemen = request.POST.get('level_manajemen')
+        dnama_posisi = request.POST.get('nama_posisi')
+        dkode_posisi = request.POST.get('kode_posisi')
+        dstatus_jabatan = request.POST.get('status_jabatan')
+        djabatan_baru = request.POST.get('jabatan_baru')
+        dstatus_pegawai = request.POST.get('status_pegawai')
+        dtanggal_masuk = request.POST.get('tanggal_masuk')
+        dno_ktp = request.POST.get('no_ktp')
+        dtempat_lahir = request.POST.get('tempat_lahir')
+        dtanggal_lahir = request.POST.get('tanggal_lahir')
+        djenis_kelamin = request.POST.get('jenis_kelamin')
+        dagama = request.POST.get('agama')
+        dpendidikan = request.POST.get('pendidikan')
+        djurusan = request.POST.get('jurusan')
+        dalamat = request.POST.get('alamat')
+        dno_hp = request.POST.get('no_hp')
+        dmarital_status = request.POST.get('marital_status')
+        danak = request.POST.get('anak')
+        dno_rekening = request.POST.get('no_rekening')
+        dbpjs_ketenagakerjaan = request.POST.get('bpjs_ketenagakerjaan')
+        dstatus = request.POST.get('status')
+        
+        # -------------------------------------------------------------
+        # darurat
+        dnama_darurat = request.POST.get('nama_darurat')
+        dalamat_darurat = request.POST.get('alamat_darurat')
+        dhubungan_darurat = request.POST.get('hubungan_darurat')
+        dno_hp_darurat = request.POST.get('no_hp_darurat')
+
+        d.no_id_fingerprint = int(dno_id_fingerprint)
+        d.nama = dnama
+        d.area = darea
+        d.level_manajemen = dlevel_manajemen
+        d.nama_posisi = dnama_posisi
+        d.kode_posisi = dkode_posisi
+        d.status_jabatan = dstatus_jabatan
+        d.jabatan_baru = djabatan_baru
+        d.status_pegawai = dstatus_pegawai
+        d.tanggal_masuk = dtanggal_masuk
+        d.no_ktp = dno_ktp
+        d.tempat_lahir = dtempat_lahir
+        d.tanggal_lahir = dtanggal_lahir
+        d.jenis_kelamin = djenis_kelamin
+        d.agama = dagama
+        d.pendidikan = dpendidikan
+        d.jurusan = djurusan
+        d.alamat = dalamat
+        d.no_hp = dno_hp
+        d.marital_status = dmarital_status
+        d.anak = danak
+        d.no_rekening = dno_rekening
+        d.bpjs_ketenagakerjaan = dbpjs_ketenagakerjaan
+        d.status = dstatus
+        d.nama_darurat = dnama_darurat
+        d.alamat_darurat = dalamat_darurat
+        d.hubungan_darurat = dhubungan_darurat
+        d.no_hp_darurat = dno_hp_darurat
+        
+        d.save()
+        d.inisialisasi()
+        d.save()
+        return redirect('data_karyawan')
+        # path('detail/<int:id_karyawan>', views.detail_data, name='detail'),
+
+    return render(request, 'data_karyawan/halaman_edit.html', context)

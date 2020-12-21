@@ -135,3 +135,12 @@ def ngecekdeadline():
             a.status = "Deadline"
             a.save()
 
+# def data_karyawan():
+#     # return NIK method.nik(), Nama (kapital) method.upper(), nama posisi, area
+#     d = DataKaryawan.objects.all()
+#     data = []
+
+#     for isi in d:
+#         data.append( (isi.nik(), isi.nama.upper(), isi.nama_posisi, isi.area) )
+
+#     return data

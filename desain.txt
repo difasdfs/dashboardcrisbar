@@ -120,3 +120,14 @@ Create : HR
 Read : Manager + HRE
 Update : HR
 Delete : HR
+
+---------------------------------------------------------------------------------------
+Senin, 21 Desember 2020
+
+- edit data karyawan
+- tambahin kolom yang belum (lama bekerja, umur, tanggal keluar)
+- akses semua HR, manager read doang
+- ganti staff jadi eksekutif
+
+DESAIN HALAMAN EDIT
+1. menerima id data karyawan

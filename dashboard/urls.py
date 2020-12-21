@@ -18,6 +18,8 @@ urlpatterns = [
     path('tugas_staff/<int:tugas_id>/', views.detail_tugas_manager, name='detail_tugas_manager'),
     path('edit_tugas/<int:tugas_id>', views.edit_tugas, name='edit_tugas'),
     path('data_karyawan/', views.data_karyawan, name='data_karyawan'),
-    path('detail/', views.detail_data, name='detail'),
+    path('detail/<int:id_karyawan>', views.detail_data, name='detail'),
     path('tambah_data_karyawan/', views.tambah_data_karyawan, name='tambah_data_karyawan'),
+    path('karyawan_tidak_aktif/', views.karyawan_tidak_aktif, name='karyawan_tidak_aktif'),
+    path('halaman_edit/<int:id_karyawan>', views.halaman_edit, name='halaman_edit'),
 ]

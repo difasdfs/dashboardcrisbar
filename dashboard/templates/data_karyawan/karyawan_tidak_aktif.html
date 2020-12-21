@@ -6,7 +6,7 @@
     <div class="row">
         {% include 'data_karyawan/sidebar.html' %}
         <div class="col">
-            <h1>Data Karyawan Aktif</h1>
+            <h1>Data Karyawan Keluar</h1>
 
             <!-- nik, nama, jabatan, area -->
             <br>
@@ -25,7 +25,7 @@
                     <tr>
                         <th scope="row">{{forloop.counter}}</th>
                         <td>{{isi.nik}}</td>
-                        <td><a href="{% url 'detail' isi.id %}">{{isi.nama}}</a></td>
+                        <td><a href="{% url 'detail' isi.id  %}">{{isi.nama}}</a></td>
                         <td>{{isi.nama_posisi}}</td>
                         <td>{{isi.area}}</td>
                     </tr>

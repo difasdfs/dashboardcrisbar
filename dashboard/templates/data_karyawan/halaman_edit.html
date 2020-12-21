@@ -1,0 +1,383 @@
+<style>
+    .forminput {
+        width: 50%;
+    }
+</style>
+
+{% extends 'dashboard/main.html' %}
+{% block content %}
+
+<hr>
+<div class="container">
+    <div class="row">
+        {% include 'data_karyawan/sidebar.html' %}
+        <div class="col">
+            <h1>Ubah Data Karyawan</h1>
+
+            <!-- nama, area, level management, kode posisi,  -->
+            <div class="forminput">
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    <br>
+                    <div class="form-group">
+                        <label for="nama">Nama : </label>
+                        <input type="text" class="form-control" id="nama" name="nama" value="{{data.nama}}" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="area">Area : </label>
+                        <select class="form-control" id="area" name="area">
+
+                            {% if area_office %}
+                            <option value="Office" selected>Office</option>
+                            <option value="Cisitu">Cisitu</option>
+                            <option value="Jatinangor">Jatinangor</option>
+                            <option value="Metro">Metro</option>
+                            <option value="Sukajadi">Sukajadi</option>
+                            <option value="Telkom Sukabirus">Telkom Sukabirus</option>
+                            <option value="Telkom Sukapura">Telkom Sukapura</option>
+                            <option value="Unjani">Unjani</option>
+
+
+                            {% elif area_cisitu %}
+                            <option value="Office">Office</option>
+                            <option value="Cisitu" selected>Cisitu</option>
+                            <option value="Jatinangor">Jatinangor</option>
+                            <option value="Metro">Metro</option>
+                            <option value="Sukajadi">Sukajadi</option>
+                            <option value="Telkom Sukabirus">Telkom Sukabirus</option>
+                            <option value="Telkom Sukapura">Telkom Sukapura</option>
+                            <option value="Unjani">Unjani</option>
+
+                            {% elif area_jatinangor %}
+                            <option value="Office">Office</option>
+                            <option value="Cisitu">Cisitu</option>
+                            <option value="Jatinangor" selected>Jatinangor</option>
+                            <option value="Metro">Metro</option>
+                            <option value="Sukajadi">Sukajadi</option>
+                            <option value="Telkom Sukabirus">Telkom Sukabirus</option>
+                            <option value="Telkom Sukapura">Telkom Sukapura</option>
+                            <option value="Unjani">Unjani</option>
+
+                            {% elif area_metro %}
+                            <option value="Office">Office</option>
+                            <option value="Cisitu">Cisitu</option>
+                            <option value="Jatinangor">Jatinangor</option>
+                            <option value="Metro" selected>Metro</option>
+                            <option value="Sukajadi">Sukajadi</option>
+                            <option value="Telkom Sukabirus">Telkom Sukabirus</option>
+                            <option value="Telkom Sukapura">Telkom Sukapura</option>
+                            <option value="Unjani">Unjani</option>
+
+                            {% elif area_sukajadi %}
+                            <option value="Office">Office</option>
+                            <option value="Cisitu">Cisitu</option>
+                            <option value="Jatinangor">Jatinangor</option>
+                            <option value="Metro">Metro</option>
+                            <option value="Sukajadi" selected>Sukajadi</option>
+                            <option value="Telkom Sukabirus">Telkom Sukabirus</option>
+                            <option value="Telkom Sukapura">Telkom Sukapura</option>
+                            <option value="Unjani">Unjani</option>
+
+                            {% elif area_telkom_sukabirus %}
+                            <option value="Office">Office</option>
+                            <option value="Cisitu">Cisitu</option>
+                            <option value="Jatinangor">Jatinangor</option>
+                            <option value="Metro">Metro</option>
+                            <option value="Sukajadi">Sukajadi</option>
+                            <option value="Telkom Sukabirus" selected>Telkom Sukabirus</option>
+                            <option value="Telkom Sukapura">Telkom Sukapura</option>
+                            <option value="Unjani">Unjani</option>
+
+                            {% elif area_telkom_sukapura %}
+                            <option value="Office">Office</option>
+                            <option value="Cisitu">Cisitu</option>
+                            <option value="Jatinangor">Jatinangor</option>
+                            <option value="Metro">Metro</option>
+                            <option value="Sukajadi">Sukajadi</option>
+                            <option value="Telkom Sukabirus">Telkom Sukabirus</option>
+                            <option value="Telkom Sukapura" selected>Telkom Sukapura</option>
+                            <option value="Unjani">Unjani</option>
+
+                            {% elif area_unjani %}
+                            <option value="Office">Office</option>
+                            <option value="Cisitu">Cisitu</option>
+                            <option value="Jatinangor">Jatinangor</option>
+                            <option value="Metro">Metro</option>
+                            <option value="Sukajadi">Sukajadi</option>
+                            <option value="Telkom Sukabirus">Telkom Sukabirus</option>
+                            <option value="Telkom Sukapura">Telkom Sukapura</option>
+                            <option value="Unjani" selected>Unjani</option>
+                            {% endif %}
+
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="no_id_fingerprint">No ID Fingerprint :</label>
+                        <input type="number" id="no_id_fingerprint" name="no_id_fingerprint" class="form-control"
+                            min="0" max="1000" value="{{data.no_id_fingerprint}}" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="level_manajemen">Level Manajemen : </label>
+                        <input type="text" class="form-control" id="level_manajemen" name="level_manajemen"
+                            value="{{data.level_manajemen}}" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="nama_posisi">Nama Posisi : </label>
+                        <input type="text" class="form-control" id="nama_posisi" name="nama_posisi"
+                            value="{{data.nama_posisi}}" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="kode_posisi">Kode Posisi : </label>
+                        <input type="text" class="form-control" id="kode_posisi" name="kode_posisi"
+                            value="{{data.kode_posisi}}" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="status_jabatan">Status Jabatan : </label>
+                        <input type="text" class="form-control" id="status_jabatan" name="status_jabatan"
+                            value="{{data.status_jabatan}}" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="jabatan_baru">Jabatan Baru : </label>
+                        <input type="text" class="form-control" id="jabatan_baru" name="jabatan_baru"
+                            value="{{data.jabatan_baru}}" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="status_pegawai">Status Pegawai : </label>
+                        <input type="text" class="form-control" id="status_pegawai" name="status_pegawai"
+                            value="{{data.status_pegawai}}" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="tanggal_masuk">Tanggal Masuk : {{data.tanggal_masuk|date:"d M Y"}}</label>
+                        <input type="date" class="form-control" id="tanggal_masuk" name="tanggal_masuk" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="no_ktp">No KTP : </label>
+                        <input type="text" class="form-control" id="no_ktp" name="no_ktp" value="{{data.no_ktp}}"
+                            required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="tempat_lahir">Tempat Lahir : </label>
+                        <input type="text" class="form-control" id="tempat_lahir" name="tempat_lahir"
+                            value="{{data.tempat_lahir}}" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="tanggal_lahir">Tanggal Lahir : {{data.tanggal_lahir|date:"d M Y"}}</label>
+                        <input type="date" class="form-control" id="tanggal_lahir" name="tanggal_lahir" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="jenis_kelamin">Jenis Kelamin : </label>
+                        <select class="form-control" id="jenis_kelamin" name="jenis_kelamin">
+
+                            {% if lakilaki %}
+                            <option value="L" selected>L</option>
+                            <option value="P">P</option>
+                            {% else %}
+                            <option value="L">L</option>
+                            <option value="P" selected>P</option>
+                            {% endif %}
+
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="agama">Agama : </label>
+                        <input type="text" class="form-control" id="agama" name="agama" value="{{data.agama}}" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="pendidikan">Pendidikan : </label>
+                        <select class="form-control" id="pendidikan" name="pendidikan">
+
+                            {% if pendidikan_sd %}
+                            <option value="SD" selected>SD</option>
+                            <option value="SMP">SMP</option>
+                            <option value="SMA/SMK">SMA/SMK</option>
+                            <option value="D3">D3</option>
+                            <option value="S1">S1</option>
+                            <option value="S2">S2</option>
+                            <option value="S3">S3</option>
+
+                            {% elif pendidikan_smp %}
+                            <option value="SD">SD</option>
+                            <option value="SMP" selected>SMP</option>
+                            <option value="SMA/SMK">SMA/SMK</option>
+                            <option value="D3">D3</option>
+                            <option value="S1">S1</option>
+                            <option value="S2">S2</option>
+                            <option value="S3">S3</option>
+
+                            {% elif pendidikan_sma %}
+                            <option value="SD">SD</option>
+                            <option value="SMP">SMP</option>
+                            <option value="SMA/SMK" selected>SMA/SMK</option>
+                            <option value="D3">D3</option>
+                            <option value="S1">S1</option>
+                            <option value="S2">S2</option>
+                            <option value="S3">S3</option>
+
+                            {% elif pendidikan_d3 %}
+                            <option value="SD">SD</option>
+                            <option value="SMP">SMP</option>
+                            <option value="SMA/SMK">SMA/SMK</option>
+                            <option value="D3" selected>D3</option>
+                            <option value="S1">S1</option>
+                            <option value="S2">S2</option>
+                            <option value="S3">S3</option>
+
+                            {% elif pendidikan_s1 %}
+                            <option value="SD">SD</option>
+                            <option value="SMP">SMP</option>
+                            <option value="SMA/SMK">SMA/SMK</option>
+                            <option value="D3">D3</option>
+                            <option value="S1" selected>S1</option>
+                            <option value="S2">S2</option>
+                            <option value="S3">S3</option>
+
+                            {% elif pendidikan_s2 %}
+                            <option value="SD">SD</option>
+                            <option value="SMP">SMP</option>
+                            <option value="SMA/SMK">SMA/SMK</option>
+                            <option value="D3">D3</option>
+                            <option value="S1">S1</option>
+                            <option value="S2" selected>S2</option>
+                            <option value="S3">S3</option>
+
+                            {% elif pendidikan_s3 %}
+                            <option value="SD">SD</option>
+                            <option value="SMP">SMP</option>
+                            <option value="SMA/SMK">SMA/SMK</option>
+                            <option value="D3">D3</option>
+                            <option value="S1">S1</option>
+                            <option value="S2">S2</option>
+                            <option value="S3" selected>S3</option>
+
+                            {% endif %}
+
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="jurusan">Jurusan : </label>
+                        <input type="text" class="form-control" id="jurusan" name="jurusan" value="{{data.jurusan}}"
+                            required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="alamat">Alamat : </label>
+                        <textarea class="form-control" id="alamat" name="alamat" rows="4"
+                            required>{{data.alamat}}</textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="no_hp">No HP : </label>
+                        <input type="text" class="form-control" id="no_hp" name="no_hp" value="{{data.no_hp}}" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="marital_status">Marital Status : </label>
+                        <select class="form-control" id="marital_status" name="marital_status">
+                            {% if status_belum %}
+                            <option value="BELUM MENIKAH" selected>BELUM MENIKAH</option>
+                            <option value="MENIKAH">MENIKAH</option>
+                            <option value="CERAI">CERAI</option>
+
+                            {% elif status_menikah %}
+                            <option value="BELUM MENIKAH">BELUM MENIKAH</option>
+                            <option value="MENIKAH" selected>MENIKAH</option>
+                            <option value="CERAI">CERAI</option>
+
+                            {% elif status_cerai %}
+                            <option value="BELUM MENIKAH">BELUM MENIKAH</option>
+                            <option value="MENIKAH">MENIKAH</option>
+                            <option value="CERAI" selected>CERAI</option>
+                            {% endif %}
+
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="anak">Anak :</label>
+                        <input type="number" id="anak" name="anak" class="form-control" min="0" max="1000"
+                            value="{{data.anak}}" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="no_rekening">No Rekening : </label>
+                        <input type="text" class="form-control" id="no_rekening" name="no_rekening"
+                            value="{{data.no_rekening}}" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="bpjs_ketenagakerjaan">BPJS Ketenagakerjaan : </label>
+                        <input type="text" class="form-control" id="bpjs_ketenagakerjaan" name="bpjs_ketenagakerjaan"
+                            value="{{data.bpjs_ketenagakerjaan}}" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="status">Status : </label>
+                        <select class="form-control" id="status" name="status">
+
+                            {% if status_aktif %}
+                            <option value="AKTIF" selected>AKTIF</option>
+                            <option value="KELUAR">KELUAR</option>
+                            {% else %}
+                            <option value="AKTIF">AKTIF</option>
+                            <option value="KELUAR" selected>KELUAR</option>
+                            {% endif %}
+
+                        </select>
+                    </div>
+
+                    <br>
+                    <hr>
+                    <br>
+
+                    <h2>Kontak Darurat</h2>
+                    <br>
+                    <div class="form-group">
+                        <label for="nama_darurat">Nama : </label>
+                        <input type="text" class="form-control" id="nama_darurat" name="nama_darurat"
+                            value="{{data.nama_darurat}}" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="alamat_darurat">Alamat : </label>
+                        <textarea class="form-control" id="alamat_darurat" name="alamat_darurat" rows="3"
+                            required>{{data.alamat_darurat}}</textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="hubungan_darurat">Hubungan : </label>
+                        <input type="text" class="form-control" id="hubungan_darurat" name="hubungan_darurat"
+                            value="{{data.hubungan_darurat}}" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="no_hp_darurat">No HP Darurat : </label>
+                        <input type="text" class="form-control" id="no_hp_darurat" name="no_hp_darurat"
+                            value="{{data.no_hp_darurat}}" required>
+                    </div>
+
+                    <br>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

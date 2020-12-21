@@ -17,6 +17,7 @@
             <!-- nama, area, level management, kode posisi,  -->
             <div class="forminput">
                 <form action="" method="POST">
+                    {% csrf_token %}
                     <br>
                     <div class="form-group">
                         <label for="nama">Nama : </label>
@@ -25,7 +26,7 @@
 
                     <div class="form-group">
                         <label for="area">Area : </label>
-                        <select class="form-control" id="area">
+                        <select class="form-control" id="area" name="area">
                             <option value="Office">Office</option>
                             <option value="Cisitu">Cisitu</option>
                             <option value="Jatinangor">Jatinangor</option>
@@ -35,6 +36,12 @@
                             <option value="Telkom Sukapura">Telkom Sukapura</option>
                             <option value="Unjani">Unjani</option>
                         </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="no_id_fingerprint">No ID Fingerprint :</label>
+                        <input type="number" id="no_id_fingerprint" name="no_id_fingerprint" class="form-control"
+                            min="0" max="1000" value="0" required>
                     </div>
 
                     <div class="form-group">
@@ -89,7 +96,7 @@
 
                     <div class="form-group">
                         <label for="jenis_kelamin">Jenis Kelamin : </label>
-                        <select class="form-control" id="jenis_kelamin">
+                        <select class="form-control" id="jenis_kelamin" name="jenis_kelamin">
                             <option value="L">L</option>
                             <option value="P">P</option>
                         </select>
@@ -102,10 +109,11 @@
 
                     <div class="form-group">
                         <label for="pendidikan">Pendidikan : </label>
-                        <select class="form-control" id="pendidikan">
+                        <select class="form-control" id="pendidikan" name="pendidikan">
                             <option value="SD">SD</option>
                             <option value="SMP">SMP</option>
                             <option value="SMA/SMK">SMA/SMK</option>
+                            <option value="D3">D3</option>
                             <option value="S1">S1</option>
                             <option value="S2">S2</option>
                             <option value="S3">S3</option>
@@ -129,7 +137,7 @@
 
                     <div class="form-group">
                         <label for="marital_status">Marital Status : </label>
-                        <select class="form-control" id="marital_status">
+                        <select class="form-control" id="marital_status" name="marital_status">
                             <option value="BELUM MENIKAH">BELUM MENIKAH
                             </option>
                             <option value="MENIKAH">MENIKAH</option>
@@ -155,10 +163,9 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="marital_status">Status : </label>
-                        <select class="form-control" id="marital_status">
-                            <option value="AKTIF">AKTIF
-                            </option>
+                        <label for="status">Status : </label>
+                        <select class="form-control" id="status" name="status">
+                            <option value="AKTIF">AKTIF</option>
                             <option value="KELUAR">KELUAR</option>
                         </select>
                     </div>
@@ -170,7 +177,7 @@
                     <h2>Kontak Darurat</h2>
                     <br>
                     <div class="form-group">
-                        <label for="nama_darurat">Nama` : </label>
+                        <label for="nama_darurat">Nama : </label>
                         <input type="text" class="form-control" id="nama_darurat" name="nama_darurat" required>
                     </div>
 
@@ -181,7 +188,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="hubungan_darurat">Hubungan` : </label>
+                        <label for="hubungan_darurat">Hubungan : </label>
                         <input type="text" class="form-control" id="hubungan_darurat" name="hubungan_darurat" required>
                     </div>
 

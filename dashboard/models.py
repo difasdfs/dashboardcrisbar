@@ -131,8 +131,8 @@ class DataKaryawan(models.Model):
         ('KELUAR', 'KELUAR'),
     )
 
+    nik = models.CharField(max_length=4, null=True)
     no_id_fingerprint = models.IntegerField()
-    nik = models.CharField(max_length=4)
     nama = models.CharField(max_length=100)
     area = models.CharField(max_length=30, choices=AREA)
     level_manajemen = models.CharField(max_length=40)
@@ -142,8 +142,10 @@ class DataKaryawan(models.Model):
     jabatan_baru = models.CharField(max_length=40, null=True)
     status_pegawai = models.CharField(max_length=50, null=True)
     tanggal_masuk = models.DateField('Tanggal Masuk', null=True)
+    lama_bekerja = models.CharField(max_length=100, null=True)
     no_ktp = models.CharField(max_length=30, null=True)
     tempat_lahir = models.CharField(max_length=40, null=True)
+    umur = models.IntegerField(null=True)
     tanggal_lahir = models.DateField('Tanggal Lahir', null=True)
     jenis_kelamin = models.CharField(max_length=1, choices=JENIS_KELAMIN)
     agama = models.CharField(max_length=20, null=True)
@@ -156,7 +158,7 @@ class DataKaryawan(models.Model):
     no_rekening = models.CharField(max_length=100, null=True)
     bpjs_ketenagakerjaan = models.CharField(max_length=100, null=True)
     nama_darurat = models.CharField(max_length=100, null=True)
-
+    alamat_darurat = models.CharField(max_length=100, null=True)
     hubungan_darurat = models.CharField(max_length=100, null=True)
     no_hp_darurat = models.CharField(max_length=100, null=True)
 
@@ -166,3 +168,31 @@ class DataKaryawan(models.Model):
     # umur
     def __str__(self):
         return self.nama
+
+    def pasang_nik(self):
+        nike = str(self.id)
+        tampilan = '000' + nike
+        self.nik = tampilan[-4:]
+
+    def inisialisasi(self):
+        self.nama = self.nama.upper()
+        self.alamat = self.alamat.upper()
+        self.tempat_lahir = self.tempat_lahir.upper()
+        self.kode_posisi = self.kode_posisi.upper()
+        self.agama = self.agama.upper()
+
+    def update_data(self):
+        # umur
+        lahir = self.tanggal_lahir
+        hariini = datetime.date.today()
+        selisih = hariini - lahir
+        self.umur = selisih.days // 365
+
+        # lama bekerja
+        masuk = self.tanggal_masuk
+        selisih = hariini - masuk
+        selisih = selisih.days
+        bulan = selisih // 30
+        selisih = selisih - (bulan*30)
+
+        self.lama_bekerja = str(bulan) + " bulan, " + str(selisih) + " hari"

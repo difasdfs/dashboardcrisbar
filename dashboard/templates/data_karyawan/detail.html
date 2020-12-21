@@ -13,27 +13,111 @@
                 <tbody>
                     <tr>
                         <th scope="row">Nama</th>
-                        <td>NOVI RESTI OKTAVIANI</td>
+                        <td>{{data.nama}}</td>
                     </tr>
                     <tr>
                         <th scope="row">NIK</th>
-                        <td>0019</td>
+                        <td>{{data.nik}}</td>
                     </tr>
                     <tr>
                         <th scope="row">No ID Fingerprint</th>
-                        <td>74</td>
+                        <td>{{data.no_id_fingerprint}}</td>
                     </tr>
                     <tr>
                         <th scope="row">Area</th>
-                        <td>Office</td>
+                        <td>{{data.area}}</td>
                     </tr>
                     <tr>
                         <th scope="row">Level Manajemen</th>
-                        <td>Management</td>
+                        <td>{{data.level_manajemen}}</td>
                     </tr>
                     <tr>
                         <th scope="row">Nama Posisi</th>
-                        <td>Finance Manager</td>
+                        <td>{{data.nama_posisi}}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Kode Posisi</th>
+                        <td>{{data.kode_posisi}}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Status Jabatan</th>
+                        <td>{{data.status_jabatan}}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Jabatan Baru</th>
+                        <td>{{data.jabatan_baru}}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Status Pegawai</th>
+                        <td>{{data.status_pegawai}}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Tanggal Masuk</th>
+                        <td>{{data.tanggal_masuk|date:"d M Y"}}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Lama Bekerja</th>
+                        <td>{{data.lama_bekerja}}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">No KTP</th>
+                        <td>{{data.no_ktp}}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Tempat Lahir</th>
+                        <td>{{data.tempat_lahir}}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Tanggal Lahir</th>
+                        <td>{{data.tanggal_lahir | date:"d M Y" }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Umur</th>
+                        <td>{{data.umur}} Tahun</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Jenis Kelamin</th>
+                        <td>{{data.jenis_kelamin}}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Agama</th>
+                        <td>{{data.agama}}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Pendidikan</th>
+                        <td>{{data.pendidikan}}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Jurusan</th>
+                        <td>{{data.jurusan}}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Alamat</th>
+                        <td>{{data.alamat}}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">No HP</th>
+                        <td>{{data.no_hp}}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Marital Status</th>
+                        <td>{{data.marital_status}}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Anak</th>
+                        <td>{{data.anak}}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">No Rekening</th>
+                        <td>{{data.no_rekening}}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">BPJS Ketenagakerjaan</th>
+                        <td>{{data.bpjs_ketenagakerjaan}}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Status</th>
+                        <td>{{data.status}}</td>
                     </tr>
                 </tbody>
             </table>
@@ -44,25 +128,28 @@
                 <tbody>
                     <tr>
                         <th scope="row">Nama Darurat</th>
-                        <td>NOVI RESTI OKTAVIANI</td>
+                        <td>{{data.nama_darurat}}</td>
                     </tr>
                     <tr>
                         <th scope="row">Alamat Darurat</th>
-                        <td>di jalan</td>
+                        <td>{{data.alamat_darurat}}</td>
                     </tr>
                     <tr>
                         <th scope="row">Hubungan Darurat</th>
-                        <td>Kakak</td>
+                        <td>{{data.hubungan_darurat}}</td>
                     </tr>
                     <tr>
                         <th scope="row">No HP Darurat</th>
-                        <td>123456789</td>
+                        <td>{{data.no_hp_darurat}}</td>
                     </tr>
                 </tbody>
             </table>
 
-            <hr>
+            <a href="{% url 'halaman_edit' data.id %}" class="btn btn-warning btn-lg" role="button"
+                aria-pressed="true">Ubah</a>
 
+            <br>
+            <br>
         </div>
     </div>
 </div>
