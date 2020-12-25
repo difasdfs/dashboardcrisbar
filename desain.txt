@@ -131,3 +131,10 @@ Senin, 21 Desember 2020
 
 DESAIN HALAMAN EDIT
 1. menerima id data karyawan
+
+---------------------------------------------------------------------------------------
+jumat, 25 desember 2020
+work from home
+- hosting
+- sistem upload file ke tugas
+- perbaiki tugas rutin
