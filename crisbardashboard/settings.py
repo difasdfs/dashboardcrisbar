@@ -26,7 +26,7 @@ SECRET_KEY = '8ki0_(%9%&w2u431h8#wrbl5ldk(79cu*q$fr9#+%pw1&azp#p'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.100.5', '127.0.0.1', 'dashboard-crisbar.herokuapp.com']
+ALLOWED_HOSTS = ['192.168.100.5', '127.0.0.1', 'dashboard-crisbar.herokuapp.com', '45.80.181.171']
 
 
 # Application definition
@@ -120,7 +120,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
-
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
 
-
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'

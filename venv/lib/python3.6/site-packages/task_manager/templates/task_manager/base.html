@@ -1,0 +1,59 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+  <head lang="en">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{% static 'task_manager/w3.css' %}">
+    <title>{% block title %}{% endblock %}</title>
+  </head>
+  <body>
+    <!-- Sidebar -->
+  <div class="w3-sidebar w3-bar-block w3-border-right w3-animate-left" style="display:none" id="mySidebar">
+    <button onclick="w3_close()" class="w3-bar-item w3-large">Close &times;</button>
+    {% if user.is_authenticated %}
+      <strong class="w3-bar-item"><i>{{ user.username }}</i></strong>
+      <a href="{% url 'task_manager:index' %}" class="w3-bar-item w3-button">My Teams</a>
+      <a href="{% url 'task_manager:task_my_tasks' %}" class="w3-bar-item w3-button">My Tasks</a>
+      <a href="{% url 'task_manager:task_completed_tasks' %}" class="w3-bar-item w3-button">Completed Tasks</a>
+      <a href="{% url 'task_manager:task_create' %}" class="w3-bar-item w3-button">Plan a Task</a>
+      <a href="{% url 'task_manager:team_create' %}" class="w3-bar-item w3-button">Create a Team</a>
+      <form method="get" action="{% url 'task_manager:task_search' %}" class="w3-margin-top w3-margin-bottom">
+        <input type="text" name="q" class="w3-input w3-border" placeholder="Search task" required>
+        <input type="submit" value="Search" class="w3-button w3-grey w3-margin">
+      </form>
+      <a href="{% url 'task_manager:logout' %}" class="w3-bar-item w3-button">LogOut</a>
+    {% else %}
+      <a href="{% url 'task_manager:signup' %}" class="w3-bar-item w3-button">Sign Up</a>
+      <a href="{% url 'task_manager:login' %}" class="w3-bar-item w3-button">Log In</a>
+    {% endif %}
+  </div>
+
+  <!-- Page Content -->
+  <div class="w3-teal">
+    <button class="w3-button w3-teal w3-xlarge" onclick="w3_open()">☰</button>
+    <div class="w3-container">
+      <h1 style="text-shadow:1px 1px 0 #444">Task Manager</h1>
+    </div>
+  </div>
+
+  <div class="w3-container">
+    {% if messages %}
+      {% for message in messages %}
+        <div class="w3-panel w3-round-xlarge {% if message.tags == 'success' %}w3-pale-green{% else %}w3-pale-red{% endif %}" style="padding:10px">
+          {{ message }}
+        </div>
+      {% endfor %}
+    {% endif %}
+    {% block content %}{% endblock %}
+  </div>
+
+  <script>
+  function w3_open() {
+    document.getElementById("mySidebar").style.display = "block";
+  }
+  function w3_close() {
+    document.getElementById("mySidebar").style.display = "none";
+  }
+  </script>
+  </body>
+</html>
